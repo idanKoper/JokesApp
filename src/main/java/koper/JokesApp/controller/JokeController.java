@@ -6,11 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Random;
+
 @Controller
 public class JokeController {
 
     @Autowired
     private JokeService jokeService;
+
+    private Random rand = new Random();
 
     public JokeController(JokeService jokeService) {
         this.jokeService = jokeService;
@@ -19,7 +23,7 @@ public class JokeController {
     @RequestMapping({"/",""})
     public String showJoke(Model model){
         model.addAttribute("joke",jokeService.getJoke());
-
+        model.addAttribute("random",rand.nextInt(1000));
         return "chucknorris";
     }
 }
